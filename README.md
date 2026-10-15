@@ -61,7 +61,7 @@ A IA pode ser usada como apoio, com revisão e validação da equipe:
 ```text
 ├── README.md
 ├── .gitignore
-├── docs/extensao/       # artefatos do projeto de extensão, aulas 15+
+├── docs/extensao/       # registro de IA; artefatos da extensão, aulas 15+
 ├── backend/             # API Spring Boot, aula 03+
 ├── frontend/            # aplicação React/Vite, aula 09+
 └── docker-compose.yml   # ambiente integrado, aula 13+
