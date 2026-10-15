@@ -29,16 +29,34 @@ O projeto está sendo conduzido individualmente neste momento. A revisão de có
 
 | Camada | Tecnologia | Versão registrada |
 |---|---|---|
-| Back-end | Java LTS, Spring Boot e Maven | [registrar na aula 03] |
+| Back-end | Java 21, Spring Boot 4.1.1 e Maven Wrapper | Aula 03–04 |
 | Front-end | React, TypeScript, Vite e Material UI | [registrar na aula 09] |
-| Banco de dados | PostgreSQL ou similar | [registrar na aula 04] |
+| Banco de dados | H2 2.4.240 em memória (desenvolvimento) + Flyway | Aula 04 |
 | DevOps | Git, Docker, Docker Compose e CI | [registrar na aula 13] |
 
 As versões serão registradas no início de cada etapa e só serão alteradas mediante decisão da equipe documentada.
 
 ## Como executar
 
-O repositório está sendo iniciado conforme o cronograma da disciplina. As instruções de execução serão adicionadas junto com a implementação do back-end na aula 03.
+### Back-end
+
+Pré-requisito: JDK 21. Na raiz do repositório, inicie a API com o Maven Wrapper:
+
+```powershell
+.\backend\mvnw.cmd -f .\backend\pom.xml spring-boot:run
+```
+
+A API de beneficiários fica disponível em `/api/v1/beneficiarios`. Nesta etapa, há operações para listar, buscar por ID, cadastrar e excluir.
+
+O banco H2 é temporário e usado para desenvolvimento; os dados são perdidos quando a aplicação é encerrada. Para inspecioná-lo, acesse `http://localhost:8080/h2-console` enquanto a aplicação estiver rodando e use:
+
+| Campo | Valor |
+|---|---|
+| JDBC URL | `jdbc:h2:mem:socialconnectdb` |
+| Usuário | `sa` |
+| Senha | (vazia) |
+
+O esquema é criado pela migration `V1__create_beneficiarios_table.sql`, gerenciada pelo Flyway. O Hibernate usa `ddl-auto=validate` para conferir o mapeamento JPA sem criar ou alterar tabelas.
 
 ## Fluxo de trabalho Git
 
