@@ -2,6 +2,13 @@
 
 Este registro documenta contribuições relevantes de IA usadas no projeto, conforme o acordo de uso responsável descrito no README.
 
+## 2026-10-15 — API inicial de beneficiários e persistência
+
+- **Ferramenta:** OpenAI Codex.
+- **Prompt resumido:** orientar a implementação inicial da API de beneficiários conforme as Aulas 03 e 04, analisar boas práticas e ajudar a corrigir problemas de execução relacionados a Lombok, Flyway e H2.
+- **Uso da resposta:** Roger Gabriel iniciou a estrutura do projeto, definiu o escopo e revisou as alterações. A pedido dele, o Codex também gerou as primeiras versões da entidade `Beneficiario`, do DTO, repository, service e controller; adicionou a configuração de H2/Flyway e a migration V1; e atualizou as instruções de execução.
+- **Validação:** a compilação limpa foi concluída com JDK 21. Roger conferiu no H2 Console que a migration V1 foi registrada com `success = TRUE` e que a tabela `BENEFICIARIOS` existe. Os testes automatizados ainda não foram executados.
+
 ## 2026-10-15 — Organização inicial do repositório
 
 - **Ferramenta:** OpenAI Codex.
