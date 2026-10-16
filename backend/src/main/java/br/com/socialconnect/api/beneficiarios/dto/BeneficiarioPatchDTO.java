@@ -1,21 +1,27 @@
 package br.com.socialconnect.api.beneficiarios.dto;
 
-import jakarta.validation.constraints.Pattern;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+@Schema(description = "Campos opcionais para atualizar parcialmente um beneficiário")
 public record BeneficiarioPatchDTO(
 
-        @Size(max = 150, message = "Nome deve ter no máximo 150 caracteres")
-        @Pattern(regexp = ".*\\S.*", message = "Nome não pode ficar em branco")
+        @Schema(description = "Nome completo do beneficiário", example = "Maria da Silva")
+        @NotBlank(message = "{beneficiario.nome.naoEmBranco}")
+        @Size(max = 150, message = "{beneficiario.nome.tamanho}")
         String nome,
 
-        @Size(max = 20, message = "Telefone deve ter no máximo 20 caracteres")
+        @Schema(description = "Telefone de contato", example = "11999999999")
+        @Size(max = 20, message = "{beneficiario.telefone.tamanho}")
         String telefone,
 
-        @Size(max = 255, message = "Endereço deve ter no máximo 255 caracteres")
+        @Schema(description = "Endereço do beneficiário", example = "Rua das Flores, 100")
+        @Size(max = 255, message = "{beneficiario.endereco.tamanho}")
         String endereco,
 
-        @Size(max = 500, message = "Situação deve ter no máximo 500 caracteres")
+        @Schema(description = "Descrição da situação de vulnerabilidade", example = "Família em situação de insegurança alimentar")
+        @Size(max = 500, message = "{beneficiario.situacao.tamanho}")
         String situacaoVulnerabilidade
 ) {
 }
