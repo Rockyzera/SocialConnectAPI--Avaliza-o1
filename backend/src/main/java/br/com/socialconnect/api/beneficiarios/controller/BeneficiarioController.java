@@ -4,6 +4,7 @@ import br.com.socialconnect.api.beneficiarios.dto.BeneficiarioRequestDTO;
 import br.com.socialconnect.api.beneficiarios.dto.BeneficiarioResponseDTO;
 import br.com.socialconnect.api.beneficiarios.dto.BeneficiarioPatchDTO;
 import br.com.socialconnect.api.beneficiarios.service.BeneficiarioService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -47,7 +48,7 @@ public class BeneficiarioController {
 
     @PostMapping
     public ResponseEntity<BeneficiarioResponseDTO> salvar(
-            @RequestBody BeneficiarioRequestDTO dto) {
+            @Valid @RequestBody BeneficiarioRequestDTO dto) {
         BeneficiarioResponseDTO salvo = service.salvar(dto);
         URI location = URI.create("/api/v1/beneficiarios/" + salvo.idBeneficiario());
         return ResponseEntity.created(location).body(salvo);
@@ -56,14 +57,14 @@ public class BeneficiarioController {
     @PutMapping("/{idBeneficiario}")
     public ResponseEntity<BeneficiarioResponseDTO> atualizar(
             @PathVariable Long idBeneficiario,
-            @RequestBody BeneficiarioRequestDTO dto) {
+            @Valid @RequestBody BeneficiarioRequestDTO dto) {
         return ResponseEntity.ok(service.atualizar(idBeneficiario, dto));
     }
 
     @PatchMapping("/{idBeneficiario}")
     public ResponseEntity<BeneficiarioResponseDTO> atualizarParcial(
             @PathVariable Long idBeneficiario,
-            @RequestBody BeneficiarioPatchDTO dto) {
+            @Valid @RequestBody BeneficiarioPatchDTO dto) {
         return ResponseEntity.ok(service.atualizarParcial(idBeneficiario, dto));
     }
 
