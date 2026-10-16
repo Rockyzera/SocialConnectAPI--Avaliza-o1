@@ -40,14 +40,8 @@ public class DoacaoService {
             LocalDate dataFim,
             TipoDoacao tipo,
             Pageable pageable) {
-        Page<Doacao> doacoes;
-
-        if (dataInicio != null && dataFim != null && tipo != null) {
-            doacoes = repository.findByDataDoacaoBetweenAndTipo(
-                    dataInicio, dataFim, tipo, pageable);
-        } else {
-            doacoes = repository.findAll(pageable);
-        }
+        Page<Doacao> doacoes = repository.buscarComFiltros(
+                dataInicio, dataFim, tipo, pageable);
 
         return doacoes.map(this::toResponseDTO);
     }

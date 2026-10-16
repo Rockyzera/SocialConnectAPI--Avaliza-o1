@@ -75,7 +75,8 @@ class DoacaoServiceTest {
                 .tipo(TipoDoacao.ROUPA)
                 .build();
         PageRequest pageable = PageRequest.of(0, 10);
-        when(repository.findAll(pageable)).thenReturn(new PageImpl<>(List.of(doacao), pageable, 1));
+        when(repository.buscarComFiltros(null, null, null, pageable))
+                .thenReturn(new PageImpl<>(List.of(doacao), pageable, 1));
 
         // ACT
         var resultado = service.listar(null, null, null, pageable);
@@ -84,6 +85,6 @@ class DoacaoServiceTest {
         assertEquals(1, resultado.getTotalElements());
         assertEquals(1L, resultado.getContent().getFirst().idDoacao());
         assertEquals(TipoDoacao.ROUPA, resultado.getContent().getFirst().tipo());
-        verify(repository).findAll(pageable);
+        verify(repository).buscarComFiltros(null, null, null, pageable);
     }
 }
