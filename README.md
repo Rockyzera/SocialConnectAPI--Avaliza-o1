@@ -46,7 +46,7 @@ Pré-requisito: JDK 21. Na raiz do repositório, inicie a API com o Maven Wrappe
 .\backend\mvnw.cmd -f .\backend\pom.xml spring-boot:run
 ```
 
-A API de beneficiários fica disponível em `/api/v1/beneficiarios`. Nesta etapa, há operações para listar, buscar por ID, cadastrar e excluir.
+A API de beneficiários fica disponível em `/api/v1/beneficiarios`. Há operações para listar com paginação e filtros opcionais por nome e CPF, buscar por ID, cadastrar, substituir com PUT, atualizar parcialmente com PATCH e excluir. A listagem aceita os parâmetros padrão de paginação do Spring, como `page`, `size` e `sort` (por padrão, 10 resultados por página, ordenados por nome).
 
 O banco H2 é temporário e usado para desenvolvimento; os dados são perdidos quando a aplicação é encerrada. Para inspecioná-lo, acesse `http://localhost:8080/h2-console` enquanto a aplicação estiver rodando e use:
 

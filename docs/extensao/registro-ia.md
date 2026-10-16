@@ -2,6 +2,13 @@
 
 Este registro documenta contribuições relevantes de IA usadas no projeto, conforme o acordo de uso responsável descrito no README.
 
+## 2026-10-16 — Evolução da API de beneficiários conforme a Aula 05
+
+- **Ferramenta:** OpenAI Codex.
+- **Prompt resumido:** auxiliar na separação dos DTOs e nas mudanças necessárias para paginação, filtros, PUT/PATCH e respostas HTTP para beneficiário inexistente ou CPF duplicado, seguindo a Aula 05.
+- **Uso da resposta:** Roger Gabriel definiu os requisitos, orientou as mudanças esperadas e acompanhou o trabalho. O Codex auxiliou na criação dos DTOs e aplicou, sob essa orientação, as alterações correspondentes no service, controller, repository e README.
+- **Validação:** Roger acompanhou e verificou manualmente o cadastro, a paginação, os filtros por nome e CPF, PUT, PATCH, conflito de CPF (409), busca por ID inexistente (404) e exclusão. A compilação Maven terminou com `BUILD SUCCESS`; os testes automatizados não foram executados.
+
 ## 2026-10-15 — API inicial de beneficiários e persistência
 
 - **Ferramenta:** OpenAI Codex.

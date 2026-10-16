@@ -2,7 +2,7 @@ package br.com.socialconnect.api.beneficiarios.dto;
 
 import java.time.LocalDate;
 
-public record BeneficiarioDTO(
+public record BeneficiarioResponseDTO(
         Long idBeneficiario,
         String nome,
         String cpf,
