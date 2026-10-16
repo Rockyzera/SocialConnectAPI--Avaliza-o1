@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class DoacaoController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar doações", description = "Retorna doações paginadas, com filtros por período e tipo quando todos forem informados.")
+    @Operation(summary = "Listar doações", description = "Retorna doações paginadas, com filtros opcionais por data inicial, data final e tipo.")
     @ApiResponse(responseCode = "200", description = "Página de doações retornada")
     public ResponseEntity<Page<DoacaoResponseDTO>> listar(
             @Parameter(description = "Data inicial do período", example = "2026-01-01")
@@ -61,7 +62,8 @@ public class DoacaoController {
             LocalDate dataFim,
             @Parameter(description = "Categoria da doação", example = "ALIMENTO")
             @RequestParam(required = false) TipoDoacao tipo,
-            @ParameterObject @PageableDefault(size = 10) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 10, sort = "dataDoacao", direction = Sort.Direction.DESC)
+            Pageable pageable) {
         return ResponseEntity.ok(service.listar(dataInicio, dataFim, tipo, pageable));
     }
 }

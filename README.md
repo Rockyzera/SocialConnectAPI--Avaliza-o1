@@ -46,7 +46,17 @@ Pré-requisito: JDK 21. Na raiz do repositório, inicie a API com o Maven Wrappe
 .\backend\mvnw.cmd -f .\backend\pom.xml spring-boot:run
 ```
 
-A API de beneficiários fica disponível em `/api/v1/beneficiarios`. Há operações para listar com paginação e filtros opcionais por nome e CPF, buscar por ID, cadastrar, substituir com PUT, atualizar parcialmente com PATCH e excluir. A listagem aceita os parâmetros padrão de paginação do Spring, como `page`, `size` e `sort` (por padrão, 10 resultados por página, ordenados por nome).
+A API fica disponível no prefixo `/api/v1`:
+
+| Recurso | Operações | Parâmetros relevantes |
+|---|---|---|
+| `/beneficiarios` | Listar, cadastrar, atualizar com PUT/PATCH e excluir | A listagem aceita `nome`, `cpf`, `page`, `size` e `sort`; por padrão, 10 resultados por página, ordenados por nome. |
+| `/beneficiarios/{idBeneficiario}` | Consultar por ID | — |
+| `/doacoes` | Listar e cadastrar | A listagem aceita os filtros opcionais `dataInicio`, `dataFim` e `tipo`, além de `page`, `size` e `sort`. Sem ordenação explícita, usa data da doação decrescente e 10 itens por página. |
+
+As listagens retornam uma página do Spring Data com `content`, `totalElements`, `totalPages` e os demais metadados de paginação. As datas dos filtros de doação devem usar o formato `AAAA-MM-DD`; os tipos disponíveis são `ALIMENTO`, `ROUPA` e `FINANCEIRA`.
+
+A documentação OpenAPI e a interface Swagger UI ficam disponíveis, com a aplicação em execução, em `http://localhost:8080/swagger-ui.html`.
 
 O banco H2 é temporário e usado para desenvolvimento; os dados são perdidos quando a aplicação é encerrada. Para inspecioná-lo, acesse `http://localhost:8080/h2-console` enquanto a aplicação estiver rodando e use:
 
@@ -57,6 +67,16 @@ O banco H2 é temporário e usado para desenvolvimento; os dados são perdidos q
 | Senha | (vazia) |
 
 O esquema é criado pela migration `V1__create_beneficiarios_table.sql`, gerenciada pelo Flyway. O Hibernate usa `ddl-auto=validate` para conferir o mapeamento JPA sem criar ou alterar tabelas.
+
+### Testes
+
+Na raiz do repositório, execute os testes automatizados com o Maven Wrapper:
+
+```powershell
+.\backend\mvnw.cmd -f .\backend\pom.xml test
+```
+
+Os testes de integração usam um banco H2 separado, configurado pelo perfil `test`.
 
 ## Fluxo de trabalho Git
 

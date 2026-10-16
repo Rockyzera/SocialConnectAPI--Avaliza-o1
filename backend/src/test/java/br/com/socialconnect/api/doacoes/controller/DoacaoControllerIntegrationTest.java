@@ -100,4 +100,103 @@ class DoacaoControllerIntegrationTest {
         assertThat(resposta.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(resposta.getBody()).contains("\"tipo\":\"ROUPA\"", "\"totalElements\":1");
     }
+
+    @Test
+    @DisplayName("Deve aplicar somente o filtro de data inicial quando informado")
+    void deveFiltrarPorDataInicialSemExigirOsDemaisFiltros() {
+        // ARRANGE
+        salvarDoacao(LocalDate.of(2026, 1, 1), TipoDoacao.ALIMENTO);
+        salvarDoacao(LocalDate.of(2026, 1, 5), TipoDoacao.ROUPA);
+        salvarDoacao(LocalDate.of(2026, 2, 1), TipoDoacao.ALIMENTO);
+
+        // ACT
+        ResponseEntity<String> resposta = restTemplate.getForEntity(
+                "/api/v1/doacoes?dataInicio=2026-01-03&page=0&size=10", String.class);
+
+        // ASSERT
+        assertThat(resposta.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(resposta.getBody()).contains("\"totalElements\":2", "\"tipo\":\"ROUPA\"");
+        assertThat(resposta.getBody()).doesNotContain("\"dataDoacao\":\"2026-01-01\"");
+    }
+
+    @Test
+    @DisplayName("Deve aplicar somente o filtro de tipo quando informado")
+    void deveFiltrarPorTipoSemExigirAsDatas() {
+        // ARRANGE
+        salvarDoacao(LocalDate.of(2026, 1, 5), TipoDoacao.ROUPA);
+        salvarDoacao(LocalDate.of(2026, 2, 1), TipoDoacao.ALIMENTO);
+
+        // ACT
+        ResponseEntity<String> resposta = restTemplate.getForEntity(
+                "/api/v1/doacoes?tipo=ALIMENTO&page=0&size=10", String.class);
+
+        // ASSERT
+        assertThat(resposta.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(resposta.getBody()).contains("\"totalElements\":1", "\"tipo\":\"ALIMENTO\"");
+        assertThat(resposta.getBody()).doesNotContain("\"tipo\":\"ROUPA\"");
+    }
+
+    @Test
+    @DisplayName("Deve aplicar somente o filtro de data final quando informado")
+    void deveFiltrarPorDataFinalSemExigirOsDemaisFiltros() {
+        // ARRANGE
+        salvarDoacao(LocalDate.of(2026, 1, 1), TipoDoacao.ALIMENTO);
+        salvarDoacao(LocalDate.of(2026, 1, 5), TipoDoacao.ROUPA);
+        salvarDoacao(LocalDate.of(2026, 2, 1), TipoDoacao.ALIMENTO);
+
+        // ACT
+        ResponseEntity<String> resposta = restTemplate.getForEntity(
+                "/api/v1/doacoes?dataFim=2026-01-31&page=0&size=10", String.class);
+
+        // ASSERT
+        assertThat(resposta.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(resposta.getBody()).contains("\"totalElements\":2", "\"tipo\":\"ROUPA\"");
+        assertThat(resposta.getBody()).doesNotContain("\"dataDoacao\":\"2026-02-01\"");
+    }
+
+    @Test
+    @DisplayName("Deve combinar período e tipo e manter metadados de paginação")
+    void deveCombinarFiltrosEManterPaginacao() {
+        // ARRANGE
+        salvarDoacao(LocalDate.of(2026, 1, 5), TipoDoacao.ROUPA);
+        salvarDoacao(LocalDate.of(2026, 1, 10), TipoDoacao.ALIMENTO);
+        salvarDoacao(LocalDate.of(2026, 2, 1), TipoDoacao.ALIMENTO);
+
+        // ACT
+        ResponseEntity<String> resposta = restTemplate.getForEntity(
+                "/api/v1/doacoes?dataInicio=2026-01-01&dataFim=2026-01-31&tipo=ALIMENTO&page=0&size=1",
+                String.class);
+
+        // ASSERT
+        assertThat(resposta.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(resposta.getBody()).contains("\"totalElements\":1", "\"totalPages\":1",
+                "\"tipo\":\"ALIMENTO\"");
+        assertThat(resposta.getBody()).doesNotContain("\"tipo\":\"ROUPA\"");
+    }
+
+    @Test
+    @DisplayName("Deve manter a paginação sem filtros")
+    void devePaginarDoacoesSemFiltros() {
+        // ARRANGE
+        salvarDoacao(LocalDate.of(2026, 1, 5), TipoDoacao.ROUPA);
+        salvarDoacao(LocalDate.of(2026, 1, 10), TipoDoacao.ALIMENTO);
+        salvarDoacao(LocalDate.of(2026, 2, 1), TipoDoacao.ALIMENTO);
+
+        // ACT
+        ResponseEntity<String> resposta = restTemplate.getForEntity(
+                "/api/v1/doacoes?page=0&size=1", String.class);
+
+        // ASSERT
+        assertThat(resposta.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(resposta.getBody()).contains("\"totalElements\":3", "\"totalPages\":3", "\"content\":[");
+        assertThat(resposta.getBody()).containsOnlyOnce("\"idDoacao\"");
+    }
+
+    private void salvarDoacao(LocalDate dataDoacao, TipoDoacao tipo) {
+        repository.save(Doacao.builder()
+                .idDoador(1L)
+                .dataDoacao(dataDoacao)
+                .tipo(tipo)
+                .build());
+    }
 }
