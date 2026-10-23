@@ -30,7 +30,7 @@ O projeto está sendo conduzido individualmente neste momento. A revisão de có
 | Camada | Tecnologia | Versão registrada |
 |---|---|---|
 | Back-end | Java 21, Spring Boot 4.1.1 e Maven Wrapper | Aula 03–04 |
-| Front-end | React, TypeScript, Vite e Material UI | [registrar na aula 09] |
+| Front-end | React 19.3.1, TypeScript 6.0.3, Vite 8.3.4 e Axios 1.20.0 | Aula 09 |
 | Banco de dados | H2 2.4.240 em memória (desenvolvimento) + Flyway | Aula 04 |
 | DevOps | Git, Docker, Docker Compose e CI | [registrar na aula 13] |
 
@@ -77,6 +77,24 @@ Na raiz do repositório, execute os testes automatizados com o Maven Wrapper:
 ```
 
 Os testes de integração usam um banco H2 separado, configurado pelo perfil `test`.
+
+### Front-end
+
+Pré-requisitos: Node.js `^20.19.0` ou `>=22.12.0` e npm. Com o back-end em execução na porta 8080, abra outro terminal na raiz do repositório e execute:
+
+```powershell
+cd .\frontend
+npm.cmd install
+npm.cmd run dev
+```
+
+A interface ficará disponível em `http://localhost:5173`. O endereço da API pode ser alterado no arquivo `frontend/.env` usando `frontend/.env.example` como referência. O back-end permite CORS para a origem local do Vite (`http://localhost:5173`).
+
+Para validar a compilação de produção do front-end, execute dentro de `frontend/`:
+
+```powershell
+npm.cmd run build
+```
 
 ## Fluxo de trabalho Git
 
