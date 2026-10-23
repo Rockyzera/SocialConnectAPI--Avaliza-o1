@@ -14,7 +14,7 @@ Este registro documenta contribuições relevantes de IA usadas no projeto, conf
 - **Ferramenta:** OpenAI Codex.
 - **Prompt resumido:** aplicar máscaras visuais progressivas para CPF/CNPJ e telefone no front-end, sem gravar pontuação ou espaços no banco.
 - **Uso da resposta:** Roger Gabriel solicitou o comportamento visual e definiu que os dados persistidos deveriam continuar sem formatação. Sob sua orientação e supervisão, o Codex, como assistente, criou funções de formatação compartilhadas entre formulário e listagem e normalizou os valores para apenas dígitos antes do envio à API.
-- **Validação:** `npm run build` e `npm run lint` concluíram sem erros. A conferência manual da máscara na interface e dos valores persistidos ainda está pendente.
+- **Validação:** `npm run build` e `npm run lint` concluíram sem erros. Roger conferiu manualmente as máscaras na interface e confirmou no H2 que CPF e telefone foram persistidos sem pontuação.
 
 ## 2026-10-16 — Evolução da API de beneficiários conforme a Aula 05
 
