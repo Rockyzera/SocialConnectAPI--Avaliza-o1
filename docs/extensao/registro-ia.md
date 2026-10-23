@@ -2,6 +2,20 @@
 
 Este registro documenta contribuições relevantes de IA usadas no projeto, conforme o acordo de uso responsável descrito no README.
 
+## 2026-10-16 — Interface React/TypeScript e integração com a API (Aula 09)
+
+- **Ferramenta:** OpenAI Codex.
+- **Prompt resumido:** auxiliar na construção da interface da Aula 09 com React, TypeScript, Vite e Axios, integrando a listagem e o cadastro de beneficiários à API existente.
+- **Uso da resposta:** Roger Gabriel definiu o escopo conforme o material da aula, acompanhou e supervisionou as decisões e revisará as alterações. Sob essa orientação, o Codex, como assistente, preparou os componentes de listagem e formulário, os tipos e serviços Axios, a configuração CORS e as instruções de execução; também analisou e corrigiu possíveis problemas durante a implementação.
+- **Validação:** a compilação de produção do front-end (`npm run build`), o lint (`npm run lint`) e a compilação do back-end com Maven (`-DskipTests compile`) foram concluídos com sucesso. A validação manual integrada no navegador ainda está pendente.
+
+## 2026-10-23 — Máscaras visuais para CPF/CNPJ e telefone
+
+- **Ferramenta:** OpenAI Codex.
+- **Prompt resumido:** aplicar máscaras visuais progressivas para CPF/CNPJ e telefone no front-end, sem gravar pontuação ou espaços no banco.
+- **Uso da resposta:** Roger Gabriel solicitou o comportamento visual e definiu que os dados persistidos deveriam continuar sem formatação. Sob sua orientação e supervisão, o Codex, como assistente, criou funções de formatação compartilhadas entre formulário e listagem e normalizou os valores para apenas dígitos antes do envio à API.
+- **Validação:** `npm run build` e `npm run lint` concluíram sem erros. A conferência manual da máscara na interface e dos valores persistidos ainda está pendente.
+
 ## 2026-10-16 — Evolução da API de beneficiários conforme a Aula 05
 
 - **Ferramenta:** OpenAI Codex.
