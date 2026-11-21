@@ -30,7 +30,7 @@ O projeto está sendo conduzido individualmente neste momento. A revisão de có
 | Camada | Tecnologia | Versão registrada |
 |---|---|---|
 | Back-end | Java 21, Spring Boot 4.1.1 e Maven Wrapper | Aula 03–04 |
-| Front-end | React 19.3.1, TypeScript 6.0.3, Vite 8.3.4 e Axios 1.20.0 | Aula 09 |
+| Front-end | React 19.3.1, TypeScript 6.0.3, Vite 8.3.4, Axios 1.20.0, Material UI 7.3.5, React Hook Form 7.92.0 e Zod 4.6.7 | Aula 09–10 |
 | Banco de dados | H2 2.4.240 em memória (desenvolvimento) + Flyway | Aula 04 |
 | DevOps | Git, Docker, Docker Compose e CI | [registrar na aula 13] |
 
@@ -88,7 +88,9 @@ npm.cmd install
 npm.cmd run dev
 ```
 
-A interface ficará disponível em `http://localhost:5173`. O endereço da API pode ser alterado no arquivo `frontend/.env` usando `frontend/.env.example` como referência. O back-end permite CORS para a origem local do Vite (`http://localhost:5173`).
+A interface ficará disponível em `http://localhost:5173` (ou `http://127.0.0.1:5173`). O endereço da API pode ser alterado no arquivo `frontend/.env` usando `frontend/.env.example` como referência. O back-end permite CORS para essas duas origens locais do Vite.
+
+O front-end usa Material UI para os componentes visuais e React Hook Form com Zod para validar os formulários. As máscaras de CPF/CNPJ e telefone são aplicadas apenas na interface; a API recebe somente os dígitos.
 
 Para validar a compilação de produção do front-end, execute dentro de `frontend/`:
 

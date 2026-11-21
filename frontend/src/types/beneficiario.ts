@@ -13,6 +13,7 @@ export interface BeneficiarioRequest {
   cpf: string
   telefone: string
   endereco: string
+  situacaoVulnerabilidade: string
 }
 
 export interface PageResponse<T> {
