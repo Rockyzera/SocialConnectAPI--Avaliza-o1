@@ -2,6 +2,13 @@
 
 Este registro documenta contribuições relevantes de IA usadas no projeto, conforme o acordo de uso responsável descrito no README.
 
+## 2026-11-21 — Interface MUI, formulários tipados e acessibilidade (Aula 10)
+
+- **Ferramenta:** OpenAI Codex.
+- **Prompt resumido:** auxiliar na migração da interface para Material UI, na validação tipada com React Hook Form e Zod, na implementação dos recursos da Aula 10 e na correção da falha de integração entre o front-end e a API.
+- **Uso da resposta:** Roger Gabriel definiu que a implementação deveria seguir a Aula 10 e supervisionou as decisões. Sob sua orientação, o Codex atuou como assistente na implementação e revisão dos componentes, serviços, validações e documentação; durante a integração, analisou e corrigiu a configuração CORS para aceitar as duas origens locais usadas pelo Vite. Roger fará a revisão final e a validação manual da interface.
+- **Validação:** `npm.cmd run build` e `npm.cmd run lint` concluíram sem erros. O build sinalizou um aviso de tamanho do bundle. A pré-verificação CORS para `http://127.0.0.1:5173` e a consulta da API responderam HTTP 200. O teste de usabilidade com outra pessoa e a conferência manual de contraste e responsividade permanecem pendentes; nenhum resultado dessas atividades foi presumido.
+
 ## 2026-10-16 — Interface React/TypeScript e integração com a API (Aula 09)
 
 - **Ferramenta:** OpenAI Codex.
