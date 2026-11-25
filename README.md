@@ -129,6 +129,7 @@ As pastas e componentes serão criados nas etapas indicadas pelo cronograma, sem
 
 ## Documentação e referências
 
+- [Mini-laboratório: Zod, Yup e Joi](docs/estudos/validacao-schemas.md) — formulários demonstrativos em `/laboratorio-validacao`, comparação de API, tipagem, React Hook Form e benchmark.
 - Plano de ensino da disciplina no AVA/Teams.
 - [Spring Boot](https://docs.spring.io/spring-boot/), [React](https://react.dev/) e [Material UI](https://mui.com/).
 - [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) e [OWASP Top 10](https://owasp.org/www-project-top-ten/).

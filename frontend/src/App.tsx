@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import { AppBar, Box, Button, Container, Stack, Toolbar, Typography } from '@mui/material'
+import { lazy, Suspense, useState } from 'react'
+import { AppBar, Box, Button, CircularProgress, Container, Stack, Toolbar, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism'
 import { BeneficiarioForm } from './components/BeneficiarioForm'
 import { BeneficiarioList } from './components/BeneficiarioList'
 import type { Beneficiario } from './types/beneficiario'
+
+const PaginaLaboratorio = lazy(() => import('./components/LaboratorioValidacao').then(({ LaboratorioValidacao }) => ({ default: LaboratorioValidacao })))
 
 function App() {
   const [beneficiarioEmEdicao, setBeneficiarioEmEdicao] = useState<Beneficiario | null>(null)
@@ -31,6 +33,27 @@ function App() {
     setFormularioAberto(true)
   }
 
+  if (window.location.pathname === '/laboratorio-validacao') {
+    return (
+      <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+        <AppBar position="static" color="inherit" elevation={0} sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Toolbar component={Container} maxWidth="xl" sx={{ minHeight: 72 }}>
+            <VolunteerActivismIcon color="primary" sx={{ mr: 1.5, fontSize: 32 }} aria-hidden="true" />
+            <Typography component="a" href="/" variant="h6" color="text.primary" fontWeight={800} sx={{ textDecoration: 'none' }}>
+              Social<Typography component="span" variant="inherit" color="primary.main">Connect</Typography>
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ ml: 'auto' }}>
+              Laboratório de validação
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Suspense fallback={<Box component="main" sx={{ display: 'grid', minHeight: '50vh', placeItems: 'center' }}><CircularProgress aria-label="Carregando laboratório" /></Box>}>
+          <PaginaLaboratorio />
+        </Suspense>
+      </Box>
+    )
+  }
+
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
       <AppBar position="static" color="inherit" elevation={0} sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -42,6 +65,9 @@ function App() {
           <Typography variant="body2" color="text.secondary" sx={{ ml: 'auto', display: { xs: 'none', sm: 'block' } }}>
             Gestão de beneficiários
           </Typography>
+          <Button component="a" href="/laboratorio-validacao" variant="outlined" size="small" sx={{ ml: 2, flexShrink: 0 }}>
+            Laboratório
+          </Button>
         </Toolbar>
       </AppBar>
 
